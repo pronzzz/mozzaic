@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { createShader, createProgram, createTexture, resizeCanvasToDisplaySize } from '../utils/webgl';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { fetchFile, toBlobURL } from '@ffmpeg/util';
+import { toBlobURL } from '@ffmpeg/util';
 // @ts-ignore
 import vertexShaderSource from '../shaders/vertex.glsl?raw';
 // @ts-ignore
@@ -16,11 +16,12 @@ const Pixelator: React.FC = () => {
     const [pixelSize, setPixelSize] = useState<number>(6.0);
     const [colorCount, setColorCount] = useState<number>(16.0);
     const [ditherStrength, setDitherStrength] = useState<number>(0.15);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [ffmpegLoaded, setFfmpegLoaded] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
 
     const ffmpegRef = useRef(new FFmpeg());
-    const animationRef = useRef<number>();
+    const animationRef = useRef<number | null>(null);
 
     // Computed effective aspect ratio for the container
     const isSideways = rotation % 2 !== 0; // 90 or 270 degrees
@@ -43,6 +44,10 @@ const Pixelator: React.FC = () => {
     useEffect(() => {
         loadFfmpeg();
     }, []);
+
+    useEffect(() => {
+        if (ffmpegLoaded) console.log("FFmpeg ready");
+    }, [ffmpegLoaded]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
