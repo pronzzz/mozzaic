@@ -38,6 +38,7 @@ cd server
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+cd ..  # run uvicorn from the repo root so `server` is importable as a package
 uvicorn server.main:app --reload
 ```
 API Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
