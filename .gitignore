@@ -1,9 +1,21 @@
-# Python virtual environments
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Python
 .venv/
 venv/
 env/
-
-# Python bytecode / caches
 __pycache__/
 *.py[cod]
 .pytest_cache/
+
+# Local env
+.env
+.env.local
